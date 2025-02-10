@@ -1,70 +1,232 @@
-<script>
-    let music = document.getElementById("bgMusic");
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Wish for Ayushi</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Calibre:wght@700&display=swap');
 
-    function toggleMusic() {
-        if (music.paused) {
-            music.play();
-        } else {
-            music.pause();
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: pink;
+            font-family: 'Calibre', sans-serif;
+            overflow: hidden;
+            flex-direction: column;
+            position: relative;
         }
-    }
 
-    document.getElementById("openBtn").addEventListener("click", function() {
-        this.style.display = "none"; 
+        .container {
+            text-align: center;
+            position: relative;
+        }
 
-        music.volume = 0.8; 
-        music.play();
+        button {
+            font-size: 18px;
+            padding: 12px 20px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
 
-        let valentineText = document.getElementById("valentineText");
-        valentineText.classList.remove("hidden");
+        .hidden {
+            display: none;
+        }
 
-        setTimeout(() => {
-            valentineText.classList.add("hidden");
+        /* Valentine Heading */
+        .valentine-text {
+            font-size: 28px;
+            font-weight: bold;
+            color: gold;
+            text-shadow: 3px 3px 5px red;
+            position: absolute;
+            top: 35%;
+            width: 100%;
+            text-align: center;
+            font-family: 'Calibre', sans-serif;
+            opacity: 0;
+            animation: bounceIn 1s ease-in-out forwards;
+        }
 
-            let envelope = document.getElementById("envelope");
-            envelope.classList.remove("hidden");
-            envelope.classList.add("open");
+        .valentine-text span {
+            display: block;
+            font-size: 22px;
+            margin-top: 5px;
+        }
 
-            let letter = document.getElementById("letter");
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Envelope */
+        .envelope {
+            width: 260px;
+            height: 160px;
+            background: #ff4d4d;
+            position: relative;
+            border-radius: 10px;
+            transition: transform 2s ease-in-out;
+        }
+
+        .envelope.open {
+            transform: translateY(-120px);
+        }
+
+        /* Letter */
+        .letter {
+            width: 260px;
+            height: 0;
+            background: #f7e5b9;
+            position: absolute;
+            top: 0;
+            transition: height 3s ease-in-out;
+            overflow-y: auto;
+            border-radius: 5px;
+            padding: 15px;
+            text-align: left;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            font-size: 14px;
+            line-height: 1.6;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #ff69b4;
+            max-height: 400px;
+        }
+
+        .letter.open {
+            height: 400px;
+        }
+
+        /* Stamp */
+        .stamp {
+            font-size: 24px;
+            color: yellow;
+            font-weight: bold;
+            opacity: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-shadow: 0 0 5px yellow, 0 0 15px yellow;
+            border: 2px solid yellow;
+            border-radius: 50%;
+            padding: 8px 16px;
+        }
+
+        /* Music Icon */
+        .music {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button id="openBtn">Open 💌</button>
+        <div class="valentine-text hidden" id="valentineText">
+            HAPPY VALENTINE'S DAY  
+            <span>MY LOVIEE CUTIE PARTNER</span>
+        </div>
+
+        <div class="envelope hidden" id="envelope">
+            <div class="letter" id="letter">
+                <p id="letterText"></p>
+            </div>
+        </div>
+        <p class="stamp hidden">OGGY ❤️</p>
+    </div>
+
+    <!-- Background Music -->
+    <audio id="bgMusic" loop>
+        <source src="valentine_song.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Music Icon -->
+    <div class="music" onclick="toggleMusic()">🎵</div>
+
+    <script>
+        let music = document.getElementById("bgMusic");
+
+        function toggleMusic() {
+            if (music.paused) {
+                music.play();
+            } else {
+                music.pause();
+            }
+        }
+
+        document.getElementById("openBtn").addEventListener("click", function() {
+            this.style.display = "none"; 
+
+            // Start Music
+            music.volume = 0.8; 
+            music.play();
+
+            // Show Heading
+            let valentineText = document.getElementById("valentineText");
+            valentineText.classList.remove("hidden");
+
             setTimeout(() => {
-                letter.classList.add("open");
+                valentineText.classList.add("hidden");
 
-                let message = `AYUSHI," ❤️
+                let envelope = document.getElementById("envelope");
+                envelope.classList.remove("hidden");
+                envelope.classList.add("open");
+
+                let letter = document.getElementById("letter");
+                setTimeout(() => {
+                    letter.classList.add("open");
+
+                    let message = `SUNO AYUSHI," ❤️
 
 PATA HAI, DUNIYA KITNI BHI BADAL JAAYE, MERE LIYE EK CHEEZ HAMESHA SAME RAHEGI—TU. TERI WOH HASI JO DIN BANA DETI HAI, TERA GUSSA JO MUJHE AUR BHI SPECIAL FEEL KARWATA HAI, AUR TERA WOH BINA WAJAH OVERTHINK KARNA JO MUJHE HAMESHA TERE AUR KAREEB LE AATA HAI. 😄❤️
 
-MAIN JAANTA HOON, KABHI TERE MANN MEIN AJEEB AJEEB SAWAAL AATE HAIN, KABHI MOOD SWINGS HOTI HAIN, PAR EK CHEEZ PAKKI HAI—MAIN YAHIN HOON, HAMESHA. HAATH PAKDA HAI TOH KABHI CHHODUNGA NAHI. 💞
+MAIN JAANTA HOON, KABHI TERE MANN MEIN AJEEB AJEEB SAWAAL AATE HAIN, KABHI MOOD SWINGS HOTI HAIN, PAR EK CHEEZ PAKKI HAI—MAIN YAHIN HOON, HAMESHA. HAATH PAKDA HAI TOH KABHI CHHODUNGA NAHI. 💞`;
 
-I WISH KI YEH GRIP DONO TARAF SE STRONG RAHE 🤞✨, TERE SAATH CHALNE KA JO SUKOON HAI, WO KAHIN AUR NAHI MILEGA. TU MERE LIYE BAS EK NAAM YA EHSAAS NAHI, MERI ZINDAGI KA SABSE KHOOBSURAT HISSA HAI. 💖
+                    let j = 0;
+                    let speed = 50;
+                    let letterText = document.getElementById("letterText");
 
-HAPPY VALENTINE’S DAY, MERI OVERTHINKING QUEEN! 💘`;
-
-                let j = 0;
-                let speed = 50;
-                let letterText = document.getElementById("letterText");
-
-                function typeWriter() {
-                    if (j < message.length) {
-                        letterText.innerHTML += message.charAt(j);
-                        letterText.scrollTop = letterText.scrollHeight; // **Auto-scroll feature**
-                        j++;
-                        setTimeout(typeWriter, speed);
-                    } else {
-                        setTimeout(() => {
-                            letter.classList.remove("open");
-                            envelope.classList.remove("open");
-
+                    function typeWriter() {
+                        if (j < message.length) {
+                            letterText.innerHTML += message.charAt(j);
+                            letterText.scrollTop = letterText.scrollHeight; // Auto-scroll
+                            j++;
+                            setTimeout(typeWriter, speed);
+                        } else {
                             setTimeout(() => {
-                                let stamp = document.querySelector(".stamp");
-                                stamp.style.opacity = "1";
-                                stamp.classList.remove("hidden");
-                            }, 2000);
-                        }, 3000);
-                    }
-                }
+                                letter.classList.remove("open");
+                                envelope.classList.remove("open");
 
-                typeWriter();
-            }, 2000);
-        }, 3000);
-    });
-</script>
+                                setTimeout(() => {
+                                    let stamp = document.querySelector(".stamp");
+                                    stamp.style.opacity = "1";
+                                    stamp.classList.remove("hidden");
+                                }, 2000);
+                            }, 3000);
+                        }
+                    }
+
+                    typeWriter();
+                }, 2000);
+            }, 3000);
+        });
+    </script>
+</body>
+    </html>
+    
